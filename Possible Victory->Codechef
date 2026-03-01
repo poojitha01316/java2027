@@ -1,0 +1,21 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef {
+    public static void main(String[] args) throws java.lang.Exception {
+        Scanner sc = new Scanner(System.in);
+        int R = sc.nextInt();
+        int O = sc.nextInt();
+        int C = sc.nextInt();
+
+        int remainingOvers = 20 - O;
+        int maxPossibleScore = C + (remainingOvers * 36);
+
+        if (maxPossibleScore > R) {
+            System.out.println("YES");
+        } else {
+            System.out.println("NO");
+        }
+    }
+}
