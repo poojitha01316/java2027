@@ -1,0 +1,21 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef {
+    public static void main(String[] args) throws java.lang.Exception {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt(); // Read the number of test cases
+        while (t-- > 0) {
+            int a = sc.nextInt(); // Read Chef's initial coordinate
+            int b = sc.nextInt(); // Read Chefina's coordinate
+            int k = sc.nextInt(); // Read the maximum step size
+
+            int distance = Math.abs(a - b); // Calculate the distance
+            int steps = (int) Math.ceil((double) distance / k); // Calculate the number of steps
+
+            System.out.println(steps); // Print the result
+        }
+        sc.close();
+    }
+}
