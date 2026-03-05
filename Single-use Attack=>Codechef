@@ -1,0 +1,21 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int T = sc.nextInt();
+
+        while (T-- > 0) {
+            int H = sc.nextInt();
+            int X = sc.nextInt();
+            int Y = sc.nextInt();
+
+            int normal = (H + X - 1) / X;
+
+            int remaining = Math.max(0, H - Y);
+            int withSpecial = 1 + (remaining + X - 1) / X;
+
+            System.out.println(Math.min(normal, withSpecial));
+        }
+    }
+}
