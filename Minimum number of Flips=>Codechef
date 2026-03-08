@@ -1,0 +1,35 @@
+import java.util.*;
+
+class Codechef {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int t = sc.nextInt();
+            while (t-- > 0) {
+                int n = sc.nextInt();
+                int countOnes = 0;
+                int countNegOnes = 0;
+
+                for (int i = 0; i < n; i++) {
+                    int val = sc.nextInt();
+                    if (val == 1) {
+                        countOnes++;
+                    } else {
+                        countNegOnes++;
+                    }
+                }
+
+                // If N is odd, we can never reach a sum of 0
+                if (n % 2 != 0) {
+                    System.out.println("-1");
+                } else {
+                    // We need exactly n/2 ones and n/2 minus ones
+                    int target = n / 2;
+                    int ops = Math.abs(countOnes - target);
+                    System.out.println(ops);
+                }
+            }
+        }
+        sc.close();
+    }
+}
