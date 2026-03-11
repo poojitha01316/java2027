@@ -1,0 +1,36 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    public static void main (String[] args) throws java.lang.Exception
+    {
+        Scanner sc = new Scanner(System.in);
+        if (!sc.hasNextInt()) return;
+        int n = sc.nextInt();
+        int cumulativeScore1 = 0;
+        int cumulativeScore2 = 0;
+        int maxLead = 0;
+        int winner = 0;
+        for (int i = 0; i < n; i++) {
+            cumulativeScore1 += sc.nextInt();
+            cumulativeScore2 += sc.nextInt();
+
+            int currentLead = 0;
+            int currentLeader = 0;
+            if (cumulativeScore1 > cumulativeScore2) {
+                currentLead = cumulativeScore1 - cumulativeScore2;
+                currentLeader = 1;
+            } else {
+                currentLead = cumulativeScore2 - cumulativeScore1;
+                currentLeader = 2;
+            }
+            if (currentLead > maxLead) {
+                maxLead = currentLead;
+                winner = currentLeader;
+            }
+        }
+        System.out.println(winner + " " + maxLead);
+    }
+}
