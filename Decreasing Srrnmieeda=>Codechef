@@ -1,0 +1,31 @@
+import java.util.*;
+import java.io.*;
+
+class Codechef {
+    public static void main (String[] args) throws java.lang.Exception {
+        // Use fast I/O
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        PrintWriter pw = new PrintWriter(System.out);
+
+        // Read number of test cases T
+        int t = Integer.parseInt(br.readLine());
+        
+        while (t-- > 0) {
+            // Read L and R
+            String[] parts = br.readLine().split(" ");
+            long L = Long.parseLong(parts[0]);
+            long R = Long.parseLong(parts[1]);
+
+            // Check the derived condition
+            // If R >= 2*L, no solution exists.
+            if (R >= 2 * L) {
+                pw.println(-1);
+            } else {
+                // Otherwise, the smallest N is R.
+                pw.println(R);
+            }
+        }
+        
+        pw.flush();
+    }
+}
