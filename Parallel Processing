@@ -1,0 +1,240 @@
+Parallel Processing
+There are 
+N
+N tasks waiting in line to be executed. The execution time for the 
+i
+t
+h
+i 
+th
+  task is 
+A
+i
+A 
+i
+
+  seconds.
+
+Chef has two processors to execute these 
+N
+N tasks. Both these processors work simultaneously. Each processor executes the assigned tasks one by one.
+
+Chef assigns a prefix of these tasks to the first processor and the remaining tasks to the second processor.
+
+For example, if there are 
+3
+3 tasks, Chef can do one of the following:
+
+Assign no task to the first processor. This means, the second processor will execute tasks 
+1
+,
+2
+1,2 and 
+3
+3.
+Assign task 
+1
+1 to the first processor. This means, the second processor will execute tasks 
+2
+2 and 
+3
+3.
+Assign tasks 
+1
+1 and 
+2
+2 to the first processor. This means, the second processor will execute task 
+3
+3.
+Assign tasks 
+1
+,
+2
+1,2 and 
+3
+3 to the first processor. Thus, second processor would execute no tasks.
+Find the minimum time in which all the tasks can be executed.
+
+Input Format
+First line will contain 
+T
+T, number of test cases. Then the test cases follow.
+The first line of each test case contains a single integer 
+N
+N, the number of tasks waiting to be executed.
+The second line of each test case contains 
+N
+N space separated positive integers 
+A
+1
+,
+A
+2
+,
+…
+,
+A
+N
+A 
+1
+
+ ,A 
+2
+
+ ,…,A 
+N
+
+  denoting the execution time for each task.
+Output Format
+For each test case, output in a single line, the minimum time in which all tasks can be executed.
+
+Constraints
+1
+≤
+T
+≤
+100
+1≤T≤100
+1
+≤
+N
+≤
+10
+5
+1≤N≤10 
+5
+ 
+1
+≤
+A
+i
+≤
+10
+5
+1≤A 
+i
+
+ ≤10 
+5
+ 
+The sum of 
+N
+N over all test cases is not more than 
+2
+⋅
+10
+5
+2⋅10 
+5
+ .
+Subtasks
+Subtask #1 (100 points): original constraints
+
+Sample 1:
+Input
+Output
+3
+3
+4 2 3
+6
+1 1 1 1 1 1
+1
+5
+5
+3
+5
+Explanation:
+Test Case 1: Chef assigns task 
+1
+1 to the first processor and tasks 
+2
+2 and 
+3
+3 to the second processor. The first processor
+
+
+import java.util.*;
+import java.io.*;
+
+class Codechef {
+    public static void solve() {
+        try (Scanner scanner = new Scanner(System.in)) {
+            if (!scanner.hasNextInt()) return;
+            int N = scanner.nextInt();
+            
+            long[] A = new long[N];
+            for (int i = 0; i < N; i++) {
+                A[i] = scanner.nextLong();
+            }
+            
+            // 1. Calculate Prefix Sums
+            // P[i] will store the sum of A[0] through A[i-1]. P size N+1.
+            // P[0] = 0
+            // P[k] = sum of first k tasks (tasks 1 to k)
+            long[] P = new long[N + 1];
+            P[0] = 0;
+            for (int i = 0; i < N; i++) {
+                P[i + 1] = P[i] + A[i];
+            }
+            
+            long totalSum = P[N];
+            long minTime = totalSum; // Initialize with the worst case (one processor handles all)
+
+            // 2. Iterate through all possible split points k (0 to N)
+            // k represents the number of tasks assigned to Processor 1.
+            // k=0: P1 gets 0 tasks, P2 gets N tasks. Time = max(P[0], Total - P[0]) = max(0, totalSum)
+            // k=N: P1 gets N tasks, P2 gets 0 tasks. Time = max(P[N], Total - P[N]) = max(totalSum, 0)
+            
+            for (int k = 0; k <= N; k++) {
+                long timeP1 = P[k]; // Sum of first k tasks
+                long timeP2 = totalSum - P[k]; // Sum of remaining N-k tasks
+                
+                long currentTime = Math.max(timeP1, timeP2);
+                minTime = Math.min(minTime, currentTime);
+            }
+            
+            System.out.println(minTime);
+
+        } catch (Exception e) {
+            // Handle potential exceptions if necessary
+        }
+    }
+
+    public static void main(String[] args) throws java.lang.Exception {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+             PrintWriter out = new PrintWriter(System.out)) {
+            
+            int T = Integer.parseInt(br.readLine());
+            while (T-- > 0) {
+                int N = Integer.parseInt(br.readLine());
+                String[] parts = br.readLine().split(" ");
+                
+                long[] A = new long[N];
+                for (int i = 0; i < N; i++) {
+                    A[i] = Long.parseLong(parts[i]);
+                }
+                
+                // Using fast I/O approach within the main loop
+                long[] P = new long[N + 1];
+                P[0] = 0;
+                for (int i = 0; i < N; i++) {
+                    P[i + 1] = P[i] + A[i];
+                }
+                
+                long totalSum = P[N];
+                long minTime = totalSum; 
+
+                for (int k = 0; k <= N; k++) {
+                    long timeP1 = P[k]; 
+                    long timeP2 = totalSum - P[k]; 
+                    
+                    long currentTime = Math.max(timeP1, timeP2);
+                    minTime = Math.min(minTime, currentTime);
+                }
+                
+                out.println(minTime);
+            }
+            out.flush();
+        }
+    }
+}
