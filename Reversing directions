@@ -1,0 +1,111 @@
+Reversing directions
+Chef recently printed directions from his home to a hot new restaurant across the town, but forgot to print the directions to get back home. Help Chef to transform the directions to get home from the restaurant.
+
+A set of directions consists of several instructions. The first instruction is of the form "Begin on XXX", indicating the street that the route begins on. Each subsequent instruction is of the form "Left on XXX" or "Right on XXX", indicating a turn onto the specified road.
+
+When reversing directions, all left turns become right turns and vice versa, and the order of roads and turns is reversed. See the sample input for examples.
+
+Input
+Input will begin with an integer T, the number of test cases that follow. Each test case begins with an integer N, the number of instructions in the route. N lines follow, each with exactly one instruction in the format described above.
+
+Output
+For each test case, print the directions of the reversed route, one instruction per line. Print a blank line after each test case.
+
+Constraints
+1 ≤ T ≤ 15
+2 ≤ N ≤ 40
+Each line in the input will contain at most 50 characters, will contain only alphanumeric characters and spaces and will not contain consecutive spaces nor trailing spaces. By alphanumeric characters we mean digits and letters of the English alphabet (lowercase and uppercase).
+Sample 1:
+Input
+Output
+2
+4
+Begin on Road A
+Right on Road B
+Right on Road C
+Left on Road D
+6
+Begin on Old Madras Road
+Left on Domlur Flyover
+Left on 100 Feet Road
+Right on Sarjapur Road
+Right on Hosur Road
+Right on Ganapathi Temple Road
+Begin on Road D
+Right on Road C
+Left on Road B
+Left on Road A
+Begin on Ganapathi Temple Road
+Left on Hosur Road
+Left on Sarjapur Road
+Left on 100 Feet Road
+Right on Domlur Flyover
+Right on Old Madras Road
+
+Explanation:
+In the first test case, the destination lies on Road D, hence the reversed route begins on Road D. The final turn in the original route is turning left from Road C onto Road D. The reverse of this, turning right from Road D onto Road C, is the first turn in the reversed route.
+
+import java.util.*;
+import java.io.*;
+
+class Codechef {
+    public static void main(String[] args) throws java.lang.Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(br.readLine());
+        StringBuilder output = new StringBuilder();
+
+        while (t-- > 0) {
+            int n = Integer.parseInt(br.readLine());
+            String[] instructions = new String[n];
+            for (int i = 0; i < n; i++) {
+                instructions[i] = br.readLine();
+            }
+            String lastInstruction = instructions[n - 1];
+            String[] parts = lastInstruction.split(" ", 3);
+            String lastRoad = parts[2];
+            
+            output.append("Begin on ").append(lastRoad).append("\n");
+            for (int i = n - 2; i >= 1; i--) {
+                String originalInstruction = instructions[i];
+                // REMOVED ERROR: parts[2]="Road C"
+                String[] instructionParts = originalInstruction.split(" ", 3);
+                String turn = instructionParts[0];
+                String road = instructionParts[2];
+                
+                String reversedTurn;
+                if (turn.equals("Left")) {
+                    reversedTurn = "Right";
+                } else { 
+                    reversedTurn = "Left";
+                }
+                
+                output.append(reversedTurn).append(" on ").append(road).append("\n");
+            }
+            
+            String firstInstruction = instructions[0];
+            String[] parts0 = firstInstruction.split(" ", 3); 
+            String roadA = parts0[2];
+            
+            // FIX: Added the logic to print the final reversed instruction (on Road A)
+            if (n > 1) {
+                String secondInstruction = instructions[1];
+                String[] parts1 = secondInstruction.split(" ", 3);
+                String turn1 = parts1[0];
+                
+                String finalReversedTurn;
+                if (turn1.equals("Left")) {
+                    finalReversedTurn = "Right";
+                } else {
+                    finalReversedTurn = "Left";
+                }
+                output.append(finalReversedTurn).append(" on ").append(roadA).append("\n");
+            }
+            
+            if (t > 0) {
+                output.append("\n");
+            }
+        }
+        
+        System.out.print(output.toString());
+    }
+}
