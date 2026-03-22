@@ -1,0 +1,281 @@
+Barrier Alchemist
+Edward Elric is chasing after Scar. To stop Edward, Scar creates 
+N
+N barriers in the way, numbered from 
+1
+1 to 
+N
+N. Each barrier Scar created is either one of the following two types.
+
+Type 1 barrier - This barrier starts from a height 
+X
+X above the ground and extends till the sky.
+Type 2 barrier - This barrier starts from the ground and extends up to height 
+X
+X above the ground.
+problem1.png
+The height of Edward is 
+H
+H units and he has an alchemic life force of 
+L
+L units. Moreover, he can duck by 
+Y
+1
+Y 
+1
+
+  units and jump by height 
+Y
+2
+Y 
+2
+
+  units (as explained in the figures). He starts crossing barriers in sequence, starting from barrier 
+1
+1 till the barrier 
+N
+N. Whenever he can't pass a barrier by ducking or jumping (considered passed even when the barrier just touches him), he uses Alchemy to break the barrier. However, this costs him a single unit of his alchemic life force.
+
+If after breaking a barrier no life force is left, Edward gets completely exhausted, unable to pass that barrier.
+How many barriers can Edward cross?
+
+And remember never to call him a pipsqueak if his height is too short!
+
+Input:
+The first line contains 
+T
+T, the number of test cases. Then the test cases follow.
+For each test case, the first line contains five integers 
+N
+N, 
+H
+H, 
+Y
+1
+Y 
+1
+
+ , 
+Y
+2
+Y 
+2
+
+  and 
+L
+L.
+The i-th of the next 
+N
+N lines contains two integers 
+t
+i
+t 
+i
+
+  and 
+X
+i
+X 
+i
+
+  for the 
+i
+t
+h
+i 
+th
+  barrier where 
+t
+i
+=
+1
+t 
+i
+
+ =1 denotes a Type 1 Barrier and 
+t
+i
+=
+2
+t 
+i
+
+ =2 denotes a Type 2 barrier.
+Output:
+For each test case print a single line containing the number of barriers Edward can pass.
+
+Constraints
+1
+≤
+T
+≤
+100
+1≤T≤100
+1
+≤
+N
+≤
+10
+3
+1≤N≤10 
+3
+ 
+2
+≤
+H
+≤
+10
+3
+2≤H≤10 
+3
+ 
+1
+≤
+Y
+1
+<
+H
+1≤Y 
+1
+
+ <H
+1
+≤
+Y
+2
+≤
+10
+3
+1≤Y 
+2
+
+ ≤10 
+3
+ 
+1
+≤
+L
+≤
+N
+1≤L≤N
+1
+≤
+t
+i
+≤
+2
+1≤t 
+i
+
+ ≤2
+1
+≤
+X
+i
+≤
+10
+3
+1≤X 
+i
+
+ ≤10 
+3
+ 
+Sample 1:
+Input
+Output
+3
+6 5 1 2 3
+2 2
+2 1
+1 10
+2 8
+2 4
+1 2
+1 4 2 5 1
+2 6
+6 5 1 2 3
+2 2
+2 1
+1 10
+2 8
+2 4
+1 6
+5
+0
+6
+
+
+import java.util.Scanner;
+
+class Codechef {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int t = scanner.nextInt();
+        while (t-- > 0) {
+            int N = scanner.nextInt();
+            int H = scanner.nextInt();
+            int Y1 = scanner.nextInt();
+            int Y2 = scanner.nextInt();
+            int L = scanner.nextInt();
+            
+            int barriersCrossed = 0;
+            boolean exhausted = false;
+
+            for (int i = 0; i < N; i++) {
+                int type = scanner.nextInt();
+                int X = scanner.nextInt();
+                
+                if (exhausted) {
+                    // If already exhausted, just consume the rest of the input for this test case
+                    continue;
+                }
+
+                boolean canPass = false;
+
+                if (type == 1) {
+                    // Type 1 barrier: starts at height X, extends up.
+                    // Edward needs his height after ducking (H - Y1) to be less than or equal to X.
+                    // If (H - Y1) > X, he cannot pass by ducking, and he cannot pass by jumping 
+                    // because the barrier extends to the sky. He must break it.
+                    if (H - Y1 <= X) {
+                        canPass = true;
+                    }
+                } else { // type == 2
+                    // Type 2 barrier: starts at ground, extends up to height X.
+                    // Edward needs his height after jumping (Y2) to be greater than or equal to X.
+                    // If Y2 < X, he cannot pass by jumping, and he cannot pass by ducking 
+                    // because the barrier starts from the ground. He must break it.
+                    if (Y2 >= X) {
+                        canPass = true;
+                    }
+                }
+
+                if (canPass) {
+                    barriersCrossed++;
+                } else {
+                    // Cannot pass naturally, must use life force to break it
+                    if (L > 0) {
+                        L--;
+                        barriersCrossed++;
+                        if (L == 0) {
+                            // He used his last life force to break this barrier, but he is now exhausted
+                            // and cannot pass the *next* barrier. He successfully passed this one.
+                        }
+                    } else {
+                        // L is 0, cannot break, he stops here.
+                        exhausted = true;
+                    }
+                }
+                
+                if (exhausted) {
+                    // Stop counting if exhausted
+                    break;
+                }
+            }
+            
+            System.out.println(barriersCrossed);
+        }
+        scanner.close();
+    }
+}
