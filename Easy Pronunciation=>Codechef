@@ -1,0 +1,46 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+    private static boolean isVowel(char c) {
+        return c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u';
+    }
+
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int t = Integer.parseInt(br.readLine());
+		
+		while (t-- > 0) {
+			int n = Integer.parseInt(br.readLine());
+			String s = br.readLine();
+			
+			int consonantCount = 0;
+			boolean hardToPronounce = false;
+			
+			for (int i = 0; i < n; i++) {
+				char currentChar = s.charAt(i);
+				
+				if (isVowel(currentChar)) {
+					consonantCount = 0;
+				} else {
+					consonantCount++;
+				}
+				
+				if (consonantCount >= 4) {
+					hardToPronounce = true;
+					break;
+				}
+			}
+			
+			if (hardToPronounce) {
+				System.out.println("NO");
+			} else {
+				System.out.println("YES");
+			}
+		}
+	}
+}
