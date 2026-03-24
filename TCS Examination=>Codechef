@@ -1,0 +1,49 @@
+import java.util.*;
+import java.io.*;
+
+class Codechef {
+	public static void main (String[] args) throws java.lang.Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		int T = Integer.parseInt(br.readLine());
+		
+		for (int t = 0; t < T; t++) {
+			String[] dragonScoresStr = br.readLine().split(" ");
+			int dDSA = Integer.parseInt(dragonScoresStr[0]);
+			int dTOC = Integer.parseInt(dragonScoresStr[1]);
+			int dDM = Integer.parseInt(dragonScoresStr[2]);
+			
+			String[] slothScoresStr = br.readLine().split(" ");
+			int sDSA = Integer.parseInt(slothScoresStr[0]);
+			int sTOC = Integer.parseInt(slothScoresStr[1]);
+			int sDM = Integer.parseInt(slothScoresStr[2]);
+			
+			int dTotal = dDSA + dTOC + dDM;
+			int sTotal = sDSA + sTOC + sDM;
+			
+			String result = "";
+
+			if (dTotal > sTotal) {
+				result = "Dragon";
+			} else if (sTotal > dTotal) {
+				result = "Sloth";
+			} else {
+				if (dDSA > sDSA) {
+					result = "Dragon";
+				} else if (sDSA > dDSA) {
+					result = "Sloth";
+				} else {
+					if (dTOC > sTOC) {
+						result = "Dragon";
+					} else if (sTOC > dTOC) {
+						result = "Sloth";
+					} else {
+						result = "Tie";
+					}
+				}
+			}
+			
+			System.out.println(result.toUpperCase()); 
+		}
+	}
+}
