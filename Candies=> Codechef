@@ -1,0 +1,30 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+
+class Codechef
+{
+	public static void main (String[] args) throws java.lang.Exception
+	{
+		Scanner scanner = new Scanner(System.in);
+        int t = scanner.nextInt(); 
+        while (t-- > 0) {
+            int n = scanner.nextInt(); 
+            HashMap<Integer, Integer> priceCount = new HashMap<>();
+            boolean isValid = true;
+            for (int i = 0; i < 2 * n; i++) {
+                int price = scanner.nextInt();
+                priceCount.put(price, priceCount.getOrDefault(price, 0) + 1);
+                if (priceCount.get(price) > 2) {
+                    isValid = false;
+                }
+            }
+            if (isValid) {
+                System.out.println("Yes");
+            } else {
+                System.out.println("No");
+            }
+        }
+        scanner.close();
+	}
+}
