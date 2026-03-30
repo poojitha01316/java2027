@@ -1,0 +1,45 @@
+import java.util.*;
+import java.io.*;
+
+class Codechef {
+    public static void main(String[] args) throws java.lang.Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+
+        int t = Integer.parseInt(br.readLine());
+        while (t-- > 0) {
+            st = new StringTokenizer(br.readLine());
+            int A = Integer.parseInt(st.nextToken());
+            int B = Integer.parseInt(st.nextToken());
+
+            long limakCandies = 0;
+            long bobCandies = 0;
+            int turn = 1;
+
+            String winner = "";
+
+            while (true) {
+                if (turn % 2 != 0) {
+                    if (limakCandies + turn <= A) {
+                        limakCandies += turn;
+                    } else {
+                        winner = "Bob";
+                        break;
+                    }
+                } 
+                else {
+                    if (bobCandies + turn <= B) {
+                        bobCandies += turn;
+                    } else {
+                        winner = "Limak";
+                        break;
+                    }
+                }
+                
+                turn++;
+            }
+            
+            System.out.println(winner);
+        }
+    }
+}
