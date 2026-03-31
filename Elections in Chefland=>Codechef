@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+class Codechef {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        
+        // Read the number of test cases
+        if (scanner.hasNextInt()) {
+            int T = scanner.nextInt();
+            
+            while (T-- > 0) {
+                // Read the votes for A, B, and C
+                int XA = scanner.nextInt();
+                int XB = scanner.nextInt();
+                int XC = scanner.nextInt();
+                
+                String result = "NOTA";
+                
+                // Check for clear majority (strictly greater than 50)
+                if (XA > 50) {
+                    result = "A";
+                } else if (XB > 50) {
+                    result = "B";
+                } else if (XC > 50) {
+                    result = "C";
+                }
+                
+                System.out.println(result);
+            }
+        }
+        scanner.close();
+    }
+}
