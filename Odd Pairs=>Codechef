@@ -1,0 +1,19 @@
+import java.util.*;
+import java.io.*;
+
+class Codechef {
+    public static void main(String[] args) throws java.lang.Exception {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int t = sc.nextInt();
+            while (t-- > 0) {
+                long n = sc.nextLong();
+                long odds = (n + 1) / 2;
+                long evens = n / 2;
+                long result = 2 * odds * evens;
+                System.out.println(result);
+            }
+        }
+        sc.close();
+    }
+}
