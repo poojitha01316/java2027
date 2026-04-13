@@ -1,0 +1,26 @@
+import java.util.*;
+import java.io.*;
+
+class Codechef {
+    public static void main(String[] args) throws java.lang.Exception {
+        Scanner sc = new Scanner(System.in);
+        if (sc.hasNextInt()) {
+            int t = sc.nextInt();
+            while (t-- > 0) {
+                int n = sc.nextInt();
+                String a = sc.next();
+                String b = sc.next(); 
+                char[] arrA = a.toCharArray();
+                char[] arrB = b.toCharArray();
+                Arrays.sort(arrA);
+                Arrays.sort(arrB);
+                if (Arrays.equals(arrA, arrB)) {
+                    System.out.println("YES");
+                } else {
+                    System.out.println("NO");
+                }
+            }
+        }
+        sc.close();
+    }
+}
